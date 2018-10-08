@@ -3,4 +3,4 @@ project(LeetCode)
 
 set(CMAKE_CXX_STANDARD 11)
 
-add_executable(LeetCode main.cpp leetcode005.cpp)
+add_executable(LeetCode main.cpp 5.最大回文子串/leetcode005.cpp)
