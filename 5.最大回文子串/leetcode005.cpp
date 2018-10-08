@@ -12,8 +12,8 @@ public:
         if(s.length()==0){
             return "";
         }
-        int dp[s.length()][s.length()] = {0};
 
+        int dp[s.length()][s.length()] = {0};
 
         for(int i = 0;i<s.length();i++){
             dp[i][i] = 1;
