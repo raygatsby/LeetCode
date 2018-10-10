@@ -1,6 +1,0 @@
-cmake_minimum_required(VERSION 3.12)
-project(LeetCode)
-
-set(CMAKE_CXX_STANDARD 11)
-
-add_executable(LeetCode main.cpp 5.LongestPalindromicSubstring/leetcode005.cpp 6.ZigZagConversion/6.cpp 4.MedianofTwoSortedArrays/4.cpp)
