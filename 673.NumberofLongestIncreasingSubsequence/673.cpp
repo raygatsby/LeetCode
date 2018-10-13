@@ -27,7 +27,7 @@ public:
             jige[i] = 1;
         }
 
-        int top_max = 0;
+        int top_max = 1;
         for(int i = 0;i<size;++i){
             int Max = dp[i];
             for(int j = i-1;j>=0;--j)
