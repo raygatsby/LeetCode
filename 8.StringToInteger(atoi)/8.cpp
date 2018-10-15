@@ -47,13 +47,15 @@ public:
             if(str[i]<'0'||str[i]>'9'){
                 break;
             }
+            // 将每个合法数字存储在vector里面
             num.push_back(str[i]-'0');
         }
 
+        // 有效数字位数
         int not0zize = 0;
-
         for(int i = 0;i<num.size();++i){
             if(num[i]!=0){
+                // i 是从左往右第一个不为0的数的下标
                 not0zize = num.size()-i;
                 break;
             }
@@ -61,6 +63,7 @@ public:
 
         if(not0zize==0)
             return 0;
+        // 溢出
         if(not0zize>10){
             if(is_zs) return INT_MAX;
             else return INT_MIN;
