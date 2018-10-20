@@ -3,7 +3,9 @@
 //
 
 // 被题目坑了！！！ 还以为n为10的输出应该是 21 哎最后写出来还看了半天以为不对
+#include <algorithm>
 
+using namespace std;
 class Solution {
 public:
     int getMoneyAmount(int n) {
