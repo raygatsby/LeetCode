@@ -11,7 +11,7 @@ public:
         int size = coins.size();
         sort(coins.begin(), coins.end());
 
-        // dp[i][j]表示有前i个硬币 能拼出和为j的最小硬币个数
+        // dp[i][j]表示有前i+1个硬币 能拼出和为j的最小硬币个数
         int dp[size][amount+1];
         for(int i =0 ;i<size;++i){
             dp[i][0] = 0;
