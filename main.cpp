@@ -10,11 +10,7 @@
 #include <cstring>
 #include <vector>
 #include <set>
-#include <string.h>
-#include <set>
-#include <unordered_map>
-#include <stack>
-#include <unistd.h>
+
 
 using namespace std;
 // 576. 出界的路径数
@@ -42,40 +38,95 @@ public:
 };
 #endif
 
-
-struct TreeNode {
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+struct ListNode {
     int val;
-    TreeNode *left;
-    TreeNode *right;
-    TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+    ListNode *next;
+    ListNode(int x) : val(x), next(NULL) {}
 };
 
-// 乘积最大的子序列 （含约束条件）
-void func(){
-    int n,k,d;
-    cin >> n;
-    int stu[n+5];
-    for(int i = 1;i<=n;++i){
-        cin >> stu[i];
-    }
-    cin >> k >> d;
+//141.判断链表是否有环
+#if 0
+class Solution {
+public:
+    bool hasCycle(ListNode *head) {
 
-    long long dp_max[k+5][n+5];
-    long long dp_min[k+5][n+5];
-    long long res;
+        if(!head)
+            return false;
+        ListNode *fast = head;
+        ListNode *slow = head;
 
-    res = LONG_LONG_MIN ;
-    for(int i = 1;i<=n;i++){
-        dp_max[1][i] = dp_min[1][i] = stu[i];
-
-        for(int m=2;m<=k;++m){
-            for(int j = i-1;i-j<=d && j>=1;j--){
-                dp_max[m][i] = max(dp_max[m][i],max(dp_max[m-1][j]*stu[i],dp_min[m-1][j]*stu[i]));
-                dp_min[m][i] = min(dp_min[m][i],min(dp_max[m-1][j]*stu[i],dp_min[m-1][j]*stu[i]));
-            }
-
+        while (fast){
+            if(fast->next)
+                fast = fast->next->next;
+            else
+                return false;
+            slow = slow->next;
+            if(fast==slow)
+                return true;
         }
-        res = max(res,dp_max[k][i]);
+        return false;
     }
-    printf("%lld\n",res);
+};
+#endif
+
+// 142.找出链表环的位置
+class Solution {
+public:
+    ListNode *detectCycle(ListNode *head) {
+
+        if(!head)
+            return NULL;
+
+        ListNode *fast = head;
+        ListNode *slow = head;
+
+
+        while (fast){
+            if(fast->next)
+                fast = fast->next->next;
+            else
+                return NULL;
+            slow = slow->next;
+            if(fast==slow){
+                // 有环时
+                slow = head;
+                while (fast!=slow){
+                    fast = fast->next;
+                    slow = slow->next;
+                }
+                return fast;
+            }
+        }
+        return NULL;
+    }
+};
+
+int main() {
+
+    vector<int> vector1{0,2,1,-3};
+
+
+#if 0
+    vector<vector<int >> v{{1},{0}};
+
+    int p1[100];
+    int *p2 = (int *)malloc(sizeof(int)*100);
+
+    memset(p2,0,sizeof(int)*100);
+
+    cout << sizeof(p1) << endl;
+    cout << sizeof(p2) << endl;
+
+    *(p2+1) = 100;
+    cout << p2[10];
+#endif
+
 }
