@@ -6,49 +6,53 @@
 // DFS+BFS
 class Solution {
 public:
-    int shortestBridge(vector<vector<int>>& A) {
-        queue<pair<int, int>> q;
+    int shortestBridge(vector<vector<int>>& A){
+        queue<pair<int,int>> q; // 存储找到的岛的坐标和往外寻找时的经过的坐标
         bool found = false;
+        ssize_t size = A.size();
 
-        // 先深搜一遍找到一个岛屿
-        for (int i = 0; i < A.size() && !found; ++i)
-            for (int j = 0; j < A[0].size() && !found; ++j)
-                if (A[i][j]) {
-                    dfs(A, j, i, q);
+        for(int i=0;i<size;++i){  // 找到一个岛
+            for(int j=0;j<size && !found;++j) {
+                if(A[i][j]==1){
+                    dfs(A, q, i, j);
                     found = true;
                 }
+            }
+        }
 
-        int steps = 0;
-        vector<int> dirs{0, 1, 0, -1, 0}; // 上下左右四个坐标
-        // 用队列进行广度优先搜索
-        while (!q.empty()) {
-            size_t size = q.size();
-            while (size--) {
+        vector<int> dirs{0,-1,0,1,0};  // 控制上下左右
+
+        int res = 0;
+
+        while (!q.empty()){  // 广度优先搜索
+            ssize_t q_size = q.size();
+            while (q_size-->0){
                 int x = q.front().first;
                 int y = q.front().second;
-                q.pop();  //把之前的结点出队列
-                for (int i = 0; i < 4; ++i) {
-                    int tx = x + dirs[i];
-                    int ty = y + dirs[i + 1];
-                    if (tx < 0 || ty < 0 || tx >= A[0].size() || ty >= A.size() || A[ty][tx] == 2) continue;
-                    if (A[ty][tx] == 1) return steps;  // 找到另一个岛
-                    A[ty][tx] = 2;
-                    q.emplace(tx, ty); // 新结点入队列 在下一个while循环使用
+                q.pop();
+                for(int i=0;i<4;++i){
+                    int tx = x+dirs[i];
+                    int ty = y+dirs[i+1];   // tx ty 是当前节点的周围四个节点坐标
+                    if(tx<0 || tx>=size || ty<0 || ty>=size || A[tx][ty]==2) continue;  // 不符合条件跳过
+                    if(A[tx][ty]==1) return res;   // 通过广搜找到另一个岛 就退出
+                    A[tx][ty] = 2;
+                    q.emplace(tx,ty);
                 }
             }
-            ++steps;
+            ++res;
         }
         return -1;
     }
-private:
-    // 深搜
-    void dfs(vector<vector<int>>& A, int x, int y, queue<pair<int, int>>& q) {
-        if (x < 0 || y < 0 || x >= A[0].size() || y >= A.size() || A[y][x] != 1) return;
-        A[y][x] = 2;
-        q.emplace(x, y);
-        dfs(A, x - 1, y, q);
-        dfs(A, x, y - 1, q);
-        dfs(A, x + 1, y, q);
-        dfs(A, x, y + 1, q);
+
+    // 深度优先搜索
+    void dfs(vector<vector<int>> &A,queue<pair<int,int>> &q,int x,int y){
+        if(x<0 || x>=A.size() || y<0 || y>=A.size() || A[x][y]!=1) return;
+        A[x][y] = 2;
+        q.emplace(x,y);
+        dfs(A,q,x-1,y);
+        dfs(A,q,x+1,y);
+        dfs(A,q,x,y-1);
+        dfs(A,q,x,y+1);
     }
+
 };
