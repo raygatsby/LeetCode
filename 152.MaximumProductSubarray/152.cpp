@@ -31,3 +31,28 @@ public:
 
     }
 };
+
+
+//11.19号重写 还没忘
+//152.乘积最大子序列
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+
+        size_t size = nums.size();
+        if(size == 0)
+            return 0;
+        int Min,Max,res;
+        res = Min = Max = nums[0];
+        for(int i=1;i<size;++i){
+            int tmp_max = Max;
+            int tmp_min = Min;
+
+            // Max Min 是给下一个能够提供的最大值和最小值  所以在Max和Min的赋值语句中必须有nums[i]存在 才能与下一个nums[i+1]连在一起
+            Max = max(max(tmp_max*nums[i],tmp_min*nums[i]),nums[i]);
+            Min = min(min(tmp_max*nums[i],tmp_min*nums[i]),nums[i]);
+            res = max(res,Max);   // 在循环过程中保存最大值
+        }
+        return res;
+    }
+};
