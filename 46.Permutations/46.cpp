@@ -22,16 +22,9 @@ public:
 
         for(int i=index;i<nums.size();i++){
 
-            int tmp = nums[i];
-            nums[i] = nums[index];
-            nums[index] = tmp;
-            cout << "swapbefore:" << nums[i] << " " << nums[index] << endl;
+            swap(nums[i],nums[index]);
             dfs(nums,index+1,res);
-            cout << "swapafter:" << nums[i] << " " << nums[index] << endl;
-            tmp = nums[i];
-            nums[i] = nums[index];
-            nums[index] = tmp;
-
+            swap(nums[i],nums[index]);
         }
     }
 };
